@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.mapper.TokentableMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo1.model.Tokentable">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, token, starttime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tokentable
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tokentable
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo1.model.Tokentable">
+    insert into tokentable (id, token, starttime
+      )
+    values (#{id,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo1.model.Tokentable">
+    insert into tokentable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo1.model.Tokentable">
+    update tokentable
+    <set>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo1.model.Tokentable">
+    update tokentable
+    set token = #{token,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

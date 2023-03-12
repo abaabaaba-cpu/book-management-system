@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.mapper.BookshelfbookMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo1.model.BookshelfbookKey">
+    <id column="bookshelfid" jdbcType="INTEGER" property="bookshelfid" />
+    <id column="bookid" jdbcType="INTEGER" property="bookid" />
+  </resultMap>
+  <select id="$selectByBookshelfid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    from bookshelfbook
+    where bookshelfid = #{bookshelfid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.demo1.model.BookshelfbookKey">
+    delete from bookshelfbook
+    where bookshelfid = #{bookshelfid,jdbcType=INTEGER}
+      and bookid = #{bookid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo1.model.BookshelfbookKey">
+    insert into bookshelfbook (bookshelfid, bookid)
+    values (#{bookshelfid,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo1.model.BookshelfbookKey">
+    insert into bookshelfbook
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookshelfid != null">
+        bookshelfid,
+      </if>
+      <if test="bookid != null">
+        bookid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookshelfid != null">
+        #{bookshelfid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

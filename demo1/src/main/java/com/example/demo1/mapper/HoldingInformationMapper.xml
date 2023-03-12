@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.mapper.HoldingInformationMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo1.model.HoldingInformation">
+    <id column="barcode" jdbcType="VARCHAR" property="barcode" />
+    <result column="bookid" jdbcType="INTEGER" property="bookid" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="booknum" jdbcType="VARCHAR" property="booknum" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    barcode, bookid, position, booknum, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from holdinginformation
+    where barcode = #{barcode,jdbcType=VARCHAR}
+  </select>
+  <select id="$selectByBookid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from holdinginformation
+    where bookid = #{bookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from holdinginformation
+    where barcode = #{barcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo1.model.HoldingInformation">
+    insert into holdinginformation (barcode, bookid, position, 
+      booknum, state)
+    values (#{barcode,jdbcType=VARCHAR}, #{bookid,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR}, 
+      #{booknum,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo1.model.HoldingInformation">
+    insert into holdinginformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="barcode != null">
+        barcode,
+      </if>
+      <if test="bookid != null">
+        bookid,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="booknum != null">
+        booknum,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="barcode != null">
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="booknum != null">
+        #{booknum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo1.model.HoldingInformation">
+    update holdinginformation
+    <set>
+      <if test="bookid != null">
+        bookid = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="booknum != null">
+        booknum = #{booknum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where barcode = #{barcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo1.model.HoldingInformation">
+    update holdinginformation
+    set bookid = #{bookid,jdbcType=INTEGER},
+      position = #{position,jdbcType=VARCHAR},
+      booknum = #{booknum,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where barcode = #{barcode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo1.mapper.BorrowHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo1.model.BorrowHistory">
+    <id column="borrowid" jdbcType="INTEGER" property="borrowid" />
+    <result column="studentid" jdbcType="INTEGER" property="studentid" />
+    <result column="borrowtime" jdbcType="DATE" property="borrowtime" />
+    <result column="returntime" jdbcType="DATE" property="returntime" />
+    <result column="duedate" jdbcType="DATE" property="duedate" />
+    <result column="barcode" jdbcType="VARCHAR" property="barcode" />
+    <result column="loss" jdbcType="INTEGER" property="loss" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    borrowid, studentid, borrowtime, returntime, duedate, barcode, loss
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from borrowhistory
+    where borrowid = #{borrowid,jdbcType=INTEGER}
+  </select>
+  <select id="$selectByStudentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from borrowhistory
+    where studentid = #{studentId,jdbcType=INTEGER}
+  </select>
+  <select id="$selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from borrowhistory
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from borrowhistory
+    where borrowid = #{borrowid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo1.model.BorrowHistory">
+    insert into borrowhistory (borrowid, studentid, borrowtime, 
+      returntime, duedate, barcode, 
+      loss)
+    values (#{borrowid,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{borrowtime,jdbcType=DATE}, 
+      #{returntime,jdbcType=DATE}, #{duedate,jdbcType=DATE}, #{barcode,jdbcType=VARCHAR}, 
+      #{loss,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo1.model.BorrowHistory">
+    insert into borrowhistory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="borrowid != null">
+        borrowid,
+      </if>
+      <if test="studentid != null">
+        studentid,
+      </if>
+      <if test="borrowtime != null">
+        borrowtime,
+      </if>
+      <if test="returntime != null">
+        returntime,
+      </if>
+      <if test="duedate != null">
+        duedate,
+      </if>
+      <if test="barcode != null">
+        barcode,
+      </if>
+      <if test="loss != null">
+        loss,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="borrowid != null">
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="studentid != null">
+        #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowtime != null">
+        #{borrowtime,jdbcType=DATE},
+      </if>
+      <if test="returntime != null">
+        #{returntime,jdbcType=DATE},
+      </if>
+      <if test="duedate != null">
+        #{duedate,jdbcType=DATE},
+      </if>
+      <if test="barcode != null">
+        #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="loss != null">
+        #{loss,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo1.model.BorrowHistory">
+    update borrowhistory
+    <set>
+      <if test="studentid != null">
+        studentid = #{studentid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowtime != null">
+        borrowtime = #{borrowtime,jdbcType=DATE},
+      </if>
+      <if test="returntime != null">
+        returntime = #{returntime,jdbcType=DATE},
+      </if>
+      <if test="duedate != null">
+        duedate = #{duedate,jdbcType=DATE},
+      </if>
+      <if test="barcode != null">
+        barcode = #{barcode,jdbcType=VARCHAR},
+      </if>
+      <if test="loss != null">
+        loss = #{loss,jdbcType=INTEGER},
+      </if>
+    </set>
+    where borrowid = #{borrowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo1.model.BorrowHistory">
+    update borrowhistory
+    set studentid = #{studentid,jdbcType=INTEGER},
+      borrowtime = #{borrowtime,jdbcType=DATE},
+      returntime = #{returntime,jdbcType=DATE},
+      duedate = #{duedate,jdbcType=DATE},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      loss = #{loss,jdbcType=INTEGER}
+    where borrowid = #{borrowid,jdbcType=INTEGER}
+  </update>
+</mapper>
